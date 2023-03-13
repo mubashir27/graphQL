@@ -14,6 +14,9 @@
     "categories": {
       "api": {
         "awsgraphql": {}
+      },
+      "auth": {
+        "awsgraphql280bfe83": {}
       }
     }
   }
