@@ -1,45 +1,51 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createPet = /* GraphQL */ `
+  mutation CreatePet(
+    $input: CreatePetInput!
+    $condition: ModelPetConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createPet(input: $input, condition: $condition) {
       id
       name
       description
+      petType
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updatePet = /* GraphQL */ `
+  mutation UpdatePet(
+    $input: UpdatePetInput!
+    $condition: ModelPetConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updatePet(input: $input, condition: $condition) {
       id
       name
       description
+      petType
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deletePet = /* GraphQL */ `
+  mutation DeletePet(
+    $input: DeletePetInput!
+    $condition: ModelPetConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deletePet(input: $input, condition: $condition) {
       id
       name
       description
+      petType
       createdAt
       updatedAt
+      owner
     }
   }
 `;
