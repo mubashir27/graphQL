@@ -1,19 +1,19 @@
-import React from "react";
-
 const Input = (props) => {
-  const { setData, data, placeholder } = props;
-  return (
-    <div className="p-2" >
-      <input
-        placeholder={placeholder}
-        className="  bg-gray-50 border border-gray-300 
-      text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-       block w-full p-2.5 "
-        value={data}
-        onChange={(event) => setData(event.target.value)}
-      />
-    </div>
-  );
+    const { setData, data, title, type, id } = props;
+    return (
+        <div className="">
+            <label name={id} className="block text-sm font-semibold text-gray-800">
+                {title}
+            </label>
+            <input
+                id={id}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border border-gray-600 rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40 "
+                value={data}
+                type={type}
+                onChange={(event) => setData(event.target.value)}
+            />
+        </div>
+    );
 };
 
 export default Input;
