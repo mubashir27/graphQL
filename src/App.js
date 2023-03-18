@@ -1,8 +1,7 @@
 import { Amplify, Auth } from "aws-amplify";
 // import {  } from 'aws-amplify';
 import awsExports from "./aws-exports";
-import { useState } from "react";
-import Registration from "./pages/Registration";
+import { useState } from 'react';
 import Routes from './Routes';
 import { useRoutes } from 'react-router-dom';
 
@@ -27,12 +26,12 @@ const App = () => {
     // };
 
     // async function confirmSignUp() {
-    //   try {
-    //     await Auth.confirmSignUp(email, verificationCode);
-    //     signIn();
-    //   } catch (err) {
-    //     console.log("error in verification in", { err });
-    //   }
+    // try {
+    //   await Auth.confirmSignUp(email, verificationCode);
+    //   signIn();
+    // } catch (err) {
+    //   console.log("error in verification in", { err });
+    // }
     // }
     // /* Sign in function */
     // async function signIn() {

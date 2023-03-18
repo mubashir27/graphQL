@@ -9,7 +9,7 @@ const Loadable = (Component) => (props) => {
     );
 };
 
-const Registration = Loadable(lazy(() => import('./pages/Registration')));
+const Registration = Loadable(lazy(() => import('./pages/RegistrationPage')));
 const Home = Loadable(lazy(() => import('./pages/Home')));
 const Error = Loadable(lazy(() => import('./components/Error')));
 
