@@ -2,6 +2,8 @@ import { Auth } from 'aws-amplify';
 import { Fragment, useMemo, useState } from 'react';
 import Registration from '../components/Registration/Registration';
 import usePersonalInfoDetailHooks from '../hooks/usePersonalInfoDetailHooks';
+import { useSelector, useDispatch } from 'react-redux';
+import { signUp } from '../store/auth/authFunctions';
 
 const RegistrationPage = () => {
     const [step, setStep] = useState(0);
@@ -9,32 +11,30 @@ const RegistrationPage = () => {
     const [personalData, setPersonalData] = useState({});
     const { labels } = usePersonalInfoDetailHooks();
 
+    const { signUpUser, isLoading, user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
     const handleChange = (event) => {
         setPersonalInfo({
             ...personalInfo,
             [event.target.id]: event.target.value,
         });
     };
-
+    const userData = {
+        userName: personalInfo?.name,
+        password: personalInfo?.password,
+        email: personalInfo?.email,
+    };
+    console.log('here is redux testing', signUpUser, isLoading, user);
     const handleClick = async () => {
         if (step === 0) {
-            try {
-                await Auth.signUp({
-                    username: personalInfo?.email,
-                    password: personalInfo?.password,
-                    attributes: {
-                        email: personalInfo?.email,
-                        name: personalInfo?.userName,
-                    },
-                });
-                setStep(step + 1);
-                setPersonalInfo({
-                    ...personalInfo,
-                    verificationCode: '',
-                });
-            } catch (err) {
-                console.log('error in sign up', { err });
-            }
+            dispatch(signUp(userData));
+            if (signUpUser) setStep(step + 1);
+            setPersonalInfo({
+                ...personalInfo,
+                verificationCode: '',
+            });
+            //
         } else if (step === 1) {
             try {
                 await Auth.confirmSignUp(personalInfo?.email, personalInfo?.verificationCode);

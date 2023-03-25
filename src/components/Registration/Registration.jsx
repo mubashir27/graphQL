@@ -44,9 +44,11 @@ const Registration = (props) => {
                                     />
                                 </div>
                             )}
-                            <p className="text-xs text-gray-800 font-bold">
-                                Password must be at least 8 characters long
-                            </p>
+                            {textFieldID.includes('password') && (
+                                <p className="text-xs text-gray-800 font-bold">
+                                    Password must be at least 8 characters long
+                                </p>
+                            )}
                             <div className="mt-6">
                                 <Button title={buttonText} onClick={handleClick} />
                             </div>
