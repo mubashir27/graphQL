@@ -3,7 +3,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import Registration from '../components/Registration/Registration';
 import usePersonalInfoDetailHooks from '../hooks/usePersonalInfoDetailHooks';
 import { useSelector, useDispatch } from 'react-redux';
-import { signUp } from '../store/auth/authFunctions';
+import { signUp, verificationCode } from '../store/auth/authFunctions';
 
 const RegistrationPage = () => {
     const [step, setStep] = useState(0);
@@ -24,6 +24,7 @@ const RegistrationPage = () => {
         userName: personalInfo?.name,
         password: personalInfo?.password,
         email: personalInfo?.email,
+        verificationCode: personalInfo?.verificationCode,
     };
     console.log('here is redux testing', signUpUser, isLoading, user);
     const handleClick = async () => {
@@ -35,13 +36,7 @@ const RegistrationPage = () => {
             });
             //
         } else if (step === 1) {
-            try {
-                await Auth.confirmSignUp(personalInfo?.email, personalInfo?.verificationCode);
-                //   signIn();
-                console.log('U R SIGNED IN!!');
-            } catch (err) {
-                console.log('error in verification in', { err });
-            }
+            dispatch(verificationCode(userData));
         } else {
             return;
         }
@@ -54,7 +49,7 @@ const RegistrationPage = () => {
     useEffect(() => {
         if (signUpUser) setStep(step + 1);
     }, [signUpUser]);
-    // console.log('change is clicked', personalData, personalInfo);
+    console.log('change is clicked', personalInfo);
 
     return (
         <Fragment>

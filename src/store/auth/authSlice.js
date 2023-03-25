@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signUp } from './authFunctions';
+import { signUp, verificationCode } from './authFunctions';
 
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -40,6 +40,24 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.signUpUser = false;
+                state.verifiedUser = false;
+                state.user = {};
+            })
+            // verification
+            .addCase(verificationCode.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(verificationCode.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.signUpUser = true;
+                state.verifiedUser = true;
+                state.user = action.payload;
+            })
+            .addCase(verificationCode.rejected, (state) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.signUpUser = true;
                 state.verifiedUser = false;
                 state.user = {};
             });
