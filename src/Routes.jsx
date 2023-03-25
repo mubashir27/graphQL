@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react';
 import LoadingScreen from './components/LoadingScreen';
-import { Counter } from './store/auth/auth';
 
 const Loadable = (Component) => (props) => {
     return (
@@ -33,10 +32,6 @@ const authRoutes = [
     {
         path: '*',
         element: <Error />,
-    },
-    {
-        path: 'redux',
-        element: <Counter />,
     },
     ...publicRoutes,
 ];

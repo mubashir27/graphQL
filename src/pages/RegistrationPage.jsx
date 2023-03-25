@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import Registration from '../components/Registration/Registration';
 import usePersonalInfoDetailHooks from '../hooks/usePersonalInfoDetailHooks';
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,7 +29,6 @@ const RegistrationPage = () => {
     const handleClick = async () => {
         if (step === 0) {
             dispatch(signUp(userData));
-            if (signUpUser) setStep(step + 1);
             setPersonalInfo({
                 ...personalInfo,
                 verificationCode: '',
@@ -51,7 +50,11 @@ const RegistrationPage = () => {
     useMemo(() => {
         setPersonalData(labels[step]);
     }, [step]);
-    console.log('change is clicked', personalData, personalInfo);
+
+    useEffect(() => {
+        if (signUpUser) setStep(step + 1);
+    }, [signUpUser]);
+    // console.log('change is clicked', personalData, personalInfo);
 
     return (
         <Fragment>
