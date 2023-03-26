@@ -10,7 +10,7 @@ const RegistrationPage = () => {
     const [personalData, setPersonalData] = useState({});
     const { labels } = usePersonalInfoDetailHooks();
 
-    const { signUpUser, isLoading, user } = useSelector((state) => state.auth);
+    const { signUpUser, isLoading, user, message } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
@@ -25,7 +25,7 @@ const RegistrationPage = () => {
         email: personalInfo?.email,
         verificationCode: personalInfo?.verificationCode,
     };
-    console.log('here is redux testing', signUpUser, isLoading, user);
+    console.log('here is redux testing', message);
     const handleClick = async () => {
         if (step === 0) {
             dispatch(signUp(userData));

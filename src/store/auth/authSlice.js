@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signIn, signUp, verificationCode } from './authFunctions';
+import { resendSignInVerificationCode, signIn, signUp, verificationCode } from './authFunctions';
 
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -38,12 +38,13 @@ export const authSlice = createSlice({
                 state.isFirstTimeAccount = false;
                 state.user = action.payload;
             })
-            .addCase(signUp.rejected, (state) => {
+            .addCase(signUp.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.signUpUser = false;
                 state.isFirstTimeAccount = false;
                 state.verifiedUser = false;
+                state.message = action.payload;
                 state.user = {};
             })
             // verification
@@ -57,11 +58,12 @@ export const authSlice = createSlice({
                 state.signUpUser = true;
                 state.verifiedUser = true;
             })
-            .addCase(verificationCode.rejected, (state) => {
+            .addCase(verificationCode.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isFirstTimeAccount = false;
                 state.signUpUser = true;
+                state.message = action.payload;
                 state.verifiedUser = false;
             })
             // signIn
@@ -74,15 +76,37 @@ export const authSlice = createSlice({
                 state.isFirstTimeAccount = false;
                 state.user = action.payload;
                 state.signUpUser = true;
-                // state.verifiedUser = true;
+                state.verifiedUser = true;
             })
-            .addCase(signIn.rejected, (state) => {
+            .addCase(signIn.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isFirstTimeAccount = false;
                 state.user = {};
-                state.signUpUser = false;
-                // state.verifiedUser = false;
+                if (action.payload === 'User is not confirmed.') {
+                    state.signUpUser = true;
+                    state.message = action.payload;
+                    state.verifiedUser = false;
+                }
+            })
+            // resendSignInVerificationCode
+            .addCase(resendSignInVerificationCode.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(resendSignInVerificationCode.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isFirstTimeAccount = true;
+                state.signUpUser = true;
+                state.verifiedUser = true;
+            })
+            .addCase(resendSignInVerificationCode.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.isFirstTimeAccount = false;
+                state.signUpUser = true;
+                state.message = action.payload;
+                state.verifiedUser = false;
             });
     },
 });

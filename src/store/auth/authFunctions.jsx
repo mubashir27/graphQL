@@ -30,3 +30,14 @@ export const signIn = createAsyncThunk('auth/signIn', async (user, { rejectWithV
         return rejectWithValue(error?.message);
     }
 });
+
+export const resendSignInVerificationCode = createAsyncThunk(
+    'auth/resendSignInVerificationCode',
+    async (user, { rejectWithValue }) => {
+        try {
+            return await authService.resendSignInVerificationCode(user);
+        } catch (error) {
+            return rejectWithValue(error?.message);
+        }
+    }
+); 

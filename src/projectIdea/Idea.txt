@@ -1,3 +1,10 @@
 banda register sa aaya verify kya isFirstLogin true hoa then 1st page is shown
 banda login hoa abhi tk verify nhi kya tha sirf account banaya tha account banaya tha ab verify kya the 1st page show hogaya
 banda login sa aaya verified bhi hai but 1st page fill kya bager chala gaya tha tu abki 1st page show hoga 
+banda register sa aaya verified bhi hai redirect to 1st page
+banda login hai tu dashboard
+banda login hai varify kara ab 1st page
+
+1st -> sign up -> verification -> 1st page -> dashboard
+2nd -> login -> no verification -> verification -> 1st page
+3rd -> login -> verification -> dashboard
