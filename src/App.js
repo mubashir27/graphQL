@@ -43,7 +43,7 @@ const App = () => {
     //   }
     // }
 
-    return <div className="h-100 w-100  bg-gray-800">{content}</div>;
+    return <div className="h-100 w-100  bg-gray-800 text-white ">{content}</div>;
 };
 
 export default App;

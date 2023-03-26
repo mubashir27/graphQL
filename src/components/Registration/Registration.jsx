@@ -1,10 +1,23 @@
 import { Fragment, memo } from 'react';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import { Link } from 'react-router-dom';
 
 const Registration = (props) => {
     const { personalData, personalInfo, handleChange, handleClick } = props;
-    const { title, label, labelSecondField, labelThirdField, description, buttonText, textFieldID } = personalData;
+    const {
+        title,
+        label,
+        labelSecondField,
+        labelThirdField,
+        description,
+        buttonText,
+        textFieldID,
+        HaveAnAccount,
+        to,
+        routingPage,
+        type,
+    } = personalData;
     return (
         <Fragment>
             <div className=" relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -15,32 +28,37 @@ const Registration = (props) => {
                         <div className="mt-6">
                             {label && (
                                 <div className="mb-2">
+                                    {console.log('textFieldID', personalInfo[textFieldID[0]])}
                                     <Input
                                         id={textFieldID[0]}
                                         onChange={handleChange}
-                                        data={personalInfo?.userName}
+                                        data={personalInfo[textFieldID[0]]}
                                         title={label}
+                                        type={type[0]}
                                     />
                                 </div>
                             )}
                             {labelSecondField && (
                                 <div className="mb-2">
+                                    {console.log('textFieldID', textFieldID[1])}
                                     <Input
                                         id={textFieldID[1]}
                                         onChange={handleChange}
-                                        data={personalInfo?.email}
+                                        data={personalInfo[textFieldID[1]]}
+                                        type={type[1]}
                                         title={labelSecondField}
                                     />
                                 </div>
                             )}
                             {labelThirdField && (
                                 <div className="mb-2">
+                                    {console.log('textFieldID', textFieldID[2])}
                                     <Input
                                         id={textFieldID[2]}
                                         onChange={handleChange}
-                                        data={personalInfo?.password}
+                                        data={personalInfo[textFieldID[2]]}
                                         title={labelThirdField}
-                                        type={'password'}
+                                        type={type[2]}
                                     />
                                 </div>
                             )}
@@ -54,13 +72,15 @@ const Registration = (props) => {
                             </div>
                         </div>
 
-                        <p className="mt-2 text-xs text-center text-gray-700">
-                            {' '}
-                            Already a member?{' '}
-                            <a href="#" className="font-medium text-gray-600 hover:underline">
-                                Sign in
-                            </a>
-                        </p>
+                        {textFieldID.includes('password') && (
+                            <p className="mt-2 text-xs text-center text-gray-700">
+                                {' '}
+                                {HaveAnAccount}{' '}
+                                <Link to={to} className="font-medium text-gray-600 hover:underline">
+                                    {routingPage}
+                                </Link>
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>

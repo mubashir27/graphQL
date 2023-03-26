@@ -14,14 +14,21 @@ const signUp = async (userData) => {
 };
 const verificationCode = async (userData) => {
     const { verificationCode, email } = userData;
-    console.log('U R SIGNED IN!!', verificationCode, email);
+    console.log('U R SIGNED IN from verification!!', verificationCode, email);
     const user = await Auth.confirmSignUp(email, verificationCode);
     return user;
 };
+
+const signIn = async (userData) => {
+    const { email, password } = userData;
+    const user = await Auth.signIn(email, password);
+    return user;
+};
+
 const authService = {
     signUp,
     verificationCode,
-    // login,
+    signIn,
     // resentVerificationLink,
     // sendConfrimationCode,
     // updatePassword,

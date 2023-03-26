@@ -20,3 +20,13 @@ export const verificationCode = createAsyncThunk('auth/verificationCode', async 
         return rejectWithValue(error?.message);
     }
 });
+
+export const signIn = createAsyncThunk('auth/signIn', async (user, { rejectWithValue }) => {
+    try {
+        console.log('signIn ');
+        return await authService.signIn(user);
+    } catch (error) {
+        console.log('signIn not ');
+        return rejectWithValue(error?.message);
+    }
+});

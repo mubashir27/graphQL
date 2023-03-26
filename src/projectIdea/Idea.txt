@@ -1,0 +1,3 @@
+banda register sa aaya verify kya isFirstLogin true hoa then 1st page is shown
+banda login hoa abhi tk verify nhi kya tha sirf account banaya tha account banaya tha ab verify kya the 1st page show hogaya
+banda login sa aaya verified bhi hai but 1st page fill kya bager chala gaya tha tu abki 1st page show hoga 
