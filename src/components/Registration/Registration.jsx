@@ -23,7 +23,7 @@ const Registration = (props) => {
             <div className=" relative flex flex-col justify-center min-h-screen overflow-hidden">
                 <div className="w-full m-auto rounded-md shadow-md lg:max-w-xl">
                     <h1 className="text-2xl mb-3 font-semibold text-center text-white font-merri">{title}</h1>
-                    <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+                    <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl md:max-w-xl">
                         <h1 className="text-2xl font-semibold text-center text-gray-700">{description}</h1>
                         <div className="mt-6">
                             {label && (
