@@ -8,12 +8,15 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
+import { ContextAuthProvider } from './context/ContextAuth';
 Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App />
+            <ContextAuthProvider>
+                <App />
+            </ContextAuthProvider>
         </Provider>
     </BrowserRouter>
 );

@@ -21,6 +21,7 @@ const verificationCode = async (userData) => {
 const signIn = async (userData) => {
     const { email, password } = userData;
     const user = await Auth.signIn(email, password);
+    user && localStorage.setItem('user', JSON.stringify(user));
     return user;
 };
 

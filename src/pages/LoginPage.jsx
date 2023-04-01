@@ -1,36 +1,44 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
 import Registration from '../components/Registration/Registration';
 import usePersonalInfoDetailHooks from '../hooks/usePersonalInfoDetailHooks';
 import { useSelector, useDispatch } from 'react-redux';
 import { signIn, resendSignInVerificationCode, verificationCode } from '../store/auth/authFunctions';
-
+import { ContextAuth } from '../context/ContextAuth';
 const RegistrationPage = () => {
-    const [step, setStep] = useState(0);
-    const [loginDetails, setLoginDetails] = useState({});
+    // dispatch redux functions
+    const dispatch = useDispatch();
+    // declares local veriables
     const [loginData, setLoginData] = useState({});
+    const [personalInfo, setPersonalInfo] = useState({});
+
+    // calling Hooks
     const { loginLabels } = usePersonalInfoDetailHooks();
 
-    const { signUpUser, isLoading, message, verifiedUser } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    console.log('here is redux testing', message, signUpUser, verifiedUser);
+    // calling context functions and global variables
+    const { step, setStep, resetStep } = useContext(ContextAuth);
+    // calling redux variables
+    const { signUpUser, verifiedUser } = useSelector((state) => state.auth);
+    // initializing objects
+    const userData = {
+        password: personalInfo?.password,
+        email: personalInfo?.email,
+        verificationCode: personalInfo?.verificationCode,
+    };
 
+    // declaring functions
     const handleChange = (event) => {
-        setLoginDetails({
-            ...loginDetails,
+        setPersonalInfo({
+            ...personalInfo,
             [event.target.id]: event.target.value,
         });
     };
-    const userData = {
-        password: loginDetails?.password,
-        email: loginDetails?.email,
-        verificationCode: loginDetails?.verificationCode,
-    };
+
     // console.log('here is redux testing', signUpUser, isLoading, user);
     const handleClick = () => {
         if (step === 0) {
             dispatch(signIn(userData));
-            setLoginDetails({
-                ...loginDetails,
+            setPersonalInfo({
+                ...personalInfo,
                 verificationCode: '',
             });
             return;
@@ -51,16 +59,19 @@ const RegistrationPage = () => {
             setStep(step + 1);
             dispatch(resendSignInVerificationCode(userData));
         }
+        if (verifiedUser) dispatch(signIn(userData));
     }, [verifiedUser, signUpUser]);
-    console.log('change is clicked', loginDetails);
+
+    console.log('change is clicked', personalInfo);
 
     return (
         <Fragment>
             <Registration
-                personalInfo={loginDetails}
+                personalInfo={personalInfo}
                 personalData={loginData}
                 handleChange={handleChange}
                 handleClick={handleClick}
+                setPersonalInfo={setPersonalInfo}
             />
         </Fragment>
     );

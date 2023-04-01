@@ -25,6 +25,7 @@ export const authSlice = createSlice({
             state.message = '';
         },
     },
+
     extraReducers: (builder) => {
         builder
             .addCase(signUp.pending, (state) => {
